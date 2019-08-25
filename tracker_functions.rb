@@ -6,7 +6,9 @@ require './animations'
 class Tracker
 
 	def setup
-		#some logic here to look for certain files and folders, and create them if they don't exist
+		unless Dir.exist?("./stash/")
+			system("mkdir stash")
+		end
 	end
 
 	def current_date
