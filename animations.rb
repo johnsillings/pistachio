@@ -50,7 +50,7 @@ class Animation
 		print "\n"
 	end
 
-		def test_animation
+	def test_animation
 		print "T"
 		sleep 0.1
 		print "\r"

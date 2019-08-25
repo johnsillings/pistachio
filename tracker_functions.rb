@@ -9,6 +9,10 @@ class Tracker
 		unless Dir.exist?("./stash/")
 			system("mkdir stash")
 		end
+
+		unless Dir.exist?("./todo/")
+			system("mkdir todo")
+		end
 	end
 
 	def current_date
@@ -23,34 +27,39 @@ class Tracker
 		"./stash/#{current_date}.txt"
 	end
 
+	def todo_file
+		"./todo/#{current_date}.txt"
+	end
+
+	def parse(input)
+		input.split(" ")[0].to_s
+	end
+
 	def run
 		prompt = "~> "
 		print prompt
 		while (input = gets.chomp)
-			break if input == "exit"
-				if input == "today"
-					# Animation.new.test_animation
-					system("cat #{today_file}")
-				# case input == "diet"
-				  	# TrackerFunction.new.diet
-				else
-					open(today_file, "a+") { |f|
-						f << "#{current_time}" + " " + input + "\n"
-					}
-					puts "logged \"#{input}\" at #{current_time} in #{current_date}.txt"
+			if input == "exit"
+				break
+			elsif input == "today"
+				system("cat #{today_file}")
+				print prompt
+			elsif input == "todos"
+				system("cat #{todo_file}")
+				print prompt
+			elsif parse(input) == "todo"
+				open(todo_file, "a+") do |file|
+					file << input + "\n"
 				end
-			print prompt
-		end
-	end
-
-	def diet
-		prompt = "What did you eat?"
-		print prompt
-		while (input = gets.chomp)
-		break if input == ""
-				open(diet_file, "a+") { |f|
-								f << "#{current_date}" + " " + input + "\n"
-				}
+				puts "logged \"#{input}\" in today's todo_file."
+				print prompt
+			else 
+				open(today_file, "a+") do |file|
+		 			file << "#{current_time}" + " " + input + "\n"
+		 		end
+		 		puts "logged \"#{input}\" at #{current_time} in #{current_date}.txt"
+				print prompt
+			end
 		end
 	end
 
