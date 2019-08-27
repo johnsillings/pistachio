@@ -35,6 +35,10 @@ class Tracker
 		input.split(" ")[0].to_s
 	end
 
+	def parse_output(input)
+		input.split(" ")[1..-1].join(" ").to_s
+	end
+
 	def run
 		prompt = "~> "
 		print prompt
@@ -47,11 +51,11 @@ class Tracker
 			elsif input == "todos"
 				system("cat #{todo_file}")
 				print prompt
-			elsif parse(input) == "todo"
+			elsif parse(input) == "todo" || parse(input) == "test"
 				open(todo_file, "a+") do |file|
-					file << input + "\n"
+					file << parse_output(input) + "\n"
 				end
-				puts "logged \"#{input}\" in today's todo_file."
+				puts "logged \"#{parse_output(input)}\" in today's todo_file."
 				print prompt
 			else 
 				open(today_file, "a+") do |file|
