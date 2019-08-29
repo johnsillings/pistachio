@@ -13,6 +13,10 @@ class Tracker
 		unless Dir.exist?("./todo/")
 			system("mkdir todo")
 		end
+
+		unless Dir.exist?("./setup/")
+			system "mkdir setup"
+		end
 	end
 
 	def current_date
@@ -65,6 +69,19 @@ class Tracker
 				print prompt
 			end
 		end
+	end
+
+	def shutdown
+		puts "Attempting to shut down gracefully and save your work."
+		if File.exist?(todo_file)
+			system("git add #{todo_file}")
+			system('git commit -m "update"')
+		end
+		# if File.exist?(today_file)
+			system("git add #{today_file}")
+			system('git commit -m "update"')
+		# end
+		system("git push")
 	end
 
 end
