@@ -4,6 +4,7 @@ require './animations'
 require './tracker_functions'
 
 Tracker.new.setup
+Tracker.new.startup
 Animation.new.startup_animation
 Tracker.new.run
 Tracker.new.shutdown

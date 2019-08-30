@@ -20,6 +20,10 @@ class Tracker
 		end
 	end
 
+	def startup
+		system("git pull --quiet")
+	end
+
 	def current_date
 		DateTime.now.strftime("%-m-%-d-%y")
 	end
