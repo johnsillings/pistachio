@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'tempfile'
 require 'date'
 require './animations'
 
@@ -60,6 +61,7 @@ class Tracker
 					file << parse_output(input) + "\n"
 				end
 				puts "logged \"#{parse_output(input)}\" in today's todo_file."
+				todo_number_lines
 				print prompt
 			else 
 				open(today_file, "a+") do |file|
@@ -69,6 +71,19 @@ class Tracker
 				print prompt
 			end
 		end
+	end
+
+	def todo_number_lines
+		temp_file = Tempfile.new('todo_temp.txt')
+		File.open(todo_file, 'r') do |f|
+			n = 1
+			f.each_line{|line|
+				temp_file.puts line.prepend("#{n}: ")
+				n += 1
+			}
+		end
+		temp_file.close
+		FileUtils.mv(temp_file.path, todo_file)
 	end
 
 	def shutdown
