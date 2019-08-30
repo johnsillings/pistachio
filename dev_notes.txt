@@ -1,0 +1,9 @@
+idea #1
+git pull functionality, similar to shutdown / git push functionality
+
+idea #2
+ascii art animation for pistachio
+source material? http://pistachio.ascii.uk/
+
+idea #3
+"done [number]" feature that removes line from todofile and adds it to todayfile
