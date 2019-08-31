@@ -67,6 +67,14 @@ class Tracker
 				puts "logged \"#{parse_output(input)}\" in today's todo_file."
 				todo_number_lines
 				print prompt
+			elsif parse(input) == "done"
+				if parse_output(input).split(" ").size == 1 && parse_output(input).split(" ")[0].is_a?(Integer)
+					linenumber = parse_output(input).split(" ")[0]
+					mark_todo_done(linenumber)
+				else
+					puts "Hrm, something's not right.  Want to try again?  To mark a todo as done, just type 'done' and then the number of the todo item."
+				end	
+				print prompt
 			else 
 				open(today_file, "a+") do |file|
 		 			file << "#{current_time}" + " " + input + "\n"
@@ -77,17 +85,31 @@ class Tracker
 		end
 	end
 
+	def is_number?(line_number)
+		line_number = line_number.to_s unless line_number.is_a? String
+ 		/\A[+-]?\d+(\.[\d]+)?\z/.match(line_number)
+		# https://medium.com/launch-school/number-validation-with-regex-ruby-393954e46797
+	end
+
 	def todo_number_lines
 		temp_file = Tempfile.new('todo_temp.txt')
 		File.open(todo_file, 'r') do |f|
 			n = 1
 			f.each_line{|line|
-				temp_file.puts line.prepend("#{n}: ")
+				if is_number?(parse(line).gsub(":",""))
+					temp_file.puts line
+				else
+					temp_file.puts line.prepend("#{n}: ")
+				end 
 				n += 1
 			}
 		end
 		temp_file.close
 		FileUtils.mv(temp_file.path, todo_file)
+	end
+
+	def mark_todo_done(linenumber)
+		temp_file = Tempfile.new('todo_temp.txt')
 	end
 
 	def shutdown
