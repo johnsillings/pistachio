@@ -97,7 +97,8 @@ class Tracker
 			n = 1
 			f.each_line{|line|
 				if is_number?(parse(line).gsub(":",""))
-					temp_file.puts line
+					line = line.split(" ")[1..-1].join(" ")
+					temp_file.puts line.prepend("#{n}: ")
 				else
 					temp_file.puts line.prepend("#{n}: ")
 				end 
@@ -108,8 +109,8 @@ class Tracker
 		FileUtils.mv(temp_file.path, todo_file)
 	end
 
-	def mark_todo_done(linenumber)
-		temp_file = Tempfile.new('todo_temp.txt')
+	def todo_done(linenumber)
+		
 	end
 
 	def shutdown
