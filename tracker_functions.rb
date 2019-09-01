@@ -68,9 +68,9 @@ class Tracker
 				todo_number_lines
 				print prompt
 			elsif parse(input) == "done"
-				if parse_output(input).split(" ").size == 1 && parse_output(input).split(" ")[0].is_a?(Integer)
-					linenumber = parse_output(input).split(" ")[0]
-					mark_todo_done(linenumber)
+				line_number = parse_output(input)
+				if input.split(" ").size == 2 && is_number?(line_number)
+					todo_done(line_number)
 				else
 					puts "Hrm, something's not right.  Want to try again?  To mark a todo as done, just type 'done' and then the number of the todo item."
 				end	
@@ -109,8 +109,25 @@ class Tracker
 		FileUtils.mv(temp_file.path, todo_file)
 	end
 
-	def todo_done(linenumber)
-		
+	def todo_done(line_number)
+		output = "error"
+		line_count = `wc -l "#{todo_file}"`.strip.split(" ")[0].to_i
+		ln = line_number.to_i
+		if ln > line_count
+			output = "You don't have that many todo items!"
+		else
+			File.open(todo_file, 'r') do |f|
+				n = 0
+				f.each_line{|line|
+					until n = ln
+						output = line
+					else
+						n += 1
+					end
+				}
+			end
+		end
+		puts output
 	end
 
 	def shutdown
