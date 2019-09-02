@@ -66,7 +66,7 @@ class Tracker
 				open(todo_file, "a+") do |file|
 					file << parse_output(input) + "\n"
 				end
-				puts "logged \"#{parse_output(input)}\" in today's todo_file."
+				puts "Added \"#{parse_output(input)}\" to today's TODO file."
 				todo_number_lines
 				print prompt
 			elsif parse(input) == "done"
@@ -77,11 +77,14 @@ class Tracker
 					puts "That's not a valid command.  To mark a todo as done, just type 'done' and then the number of the todo item."
 				end	
 				print prompt
+			elsif input == "open today"
+				system('subl #{today_file}')
+				print prompt
 			else 
 				open(today_file, "a+") do |file|
 		 			file << "#{current_time}" + " " + input + "\n"
 		 		end
-		 		puts "logged \"#{input}\" at #{current_time} in #{current_date}.txt"
+		 		puts "Logged \"#{input}\" at #{current_time} in today's STASH file, #{current_date}.txt"
 				print prompt
 			end
 		end
