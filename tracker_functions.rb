@@ -59,10 +59,10 @@ class Tracker
 			elsif input == "today"
 				system("cat #{today_file}")
 				print prompt
-			elsif input == "todos"
+			elsif input == "todos" || input == "todo"
 				system("cat #{todo_file}")
 				print prompt
-			elsif parse(input) == "todo" #|| parse(input) == "test"
+			elsif parse(input) == "todo"
 				open(todo_file, "a+") do |file|
 					file << parse_output(input) + "\n"
 				end
