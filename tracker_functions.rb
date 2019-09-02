@@ -72,7 +72,7 @@ class Tracker
 				if input.split(" ").size == 2 && is_number?(line_number)
 					todo_done(line_number)
 				else
-					puts "Hrm, something's not right.  Want to try again?  To mark a todo as done, just type 'done' and then the number of the todo item."
+					puts "That's not a valid command.  To mark a todo as done, just type 'done' and then the number of the todo item."
 				end	
 				print prompt
 			else 
@@ -110,8 +110,30 @@ class Tracker
 	end
 
 	def todo_done(line_number)
-		
-
+		ln = line_number.to_i
+		lc = `wc -l "#{todo_file}"`.strip.split(" ")[0].to_i
+		lna = ln - 1
+		lnb = line_number.to_s + ":"
+		puts lc
+		if ln > lc
+			output = "You don't have that many todo's, champ."
+		else
+			content = File.open(todo_file).readlines[lna].split(" ")[1..-1].join(" ")
+			open(today_file, "a+") do |f|
+				f << "#{current_time}" + " #{content}" + "\n"
+			end
+			output = "logged \"#{content}\" from today's todo_file in #{current_date}.txt"
+			open(todo_file, 'r') do |f|
+				open('temp_todo_file.txt', 'w') do |f2|
+					f.each_line do |line|
+						f2.write(line) unless parse(line) == lnb
+					end
+				end
+			end
+			FileUtils.mv('temp_todo_file.txt',todo_file)
+			todo_number_lines
+		end
+		puts output
 		# output = "error"
 		# line_count = `wc -l "#{todo_file}"`.strip.split(" ")[0].to_i
 		# ln = line_number.to_i

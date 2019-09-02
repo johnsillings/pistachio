@@ -7,3 +7,15 @@ source material? http://pistachio.ascii.uk/
 
 idea #3
 "done [number]" feature that removes line from todofile and adds it to todayfile
+
+	need a way to get the appropriate todofile line
+		maybe something like 
+	split, take out the first element of the array (e.g. "1:"), then rejoin
+	then, open the todayfile (File.open) with the "a+" mode to append to the bottom
+
+idea #4
+git ignore the todo and stash directories for the development version of pistachio
+git ignore the dev notes and dev scratchpad
+
+idea #5
+add a help menu so new users can figure out what the available commands are
