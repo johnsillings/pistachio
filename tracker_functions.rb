@@ -54,6 +54,8 @@ class Tracker
 		while (input = gets.chomp)
 			if input == "exit"
 				break
+			elsif input.strip == ""
+				print prompt
 			elsif input == "today"
 				system("cat #{today_file}")
 				print prompt
@@ -114,7 +116,6 @@ class Tracker
 		lc = `wc -l "#{todo_file}"`.strip.split(" ")[0].to_i
 		lna = ln - 1
 		lnb = line_number.to_s + ":"
-		puts lc
 		if ln > lc
 			output = "You don't have that many todo's, champ."
 		else
