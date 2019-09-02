@@ -134,24 +134,6 @@ class Tracker
 			todo_number_lines
 		end
 		puts output
-		# output = "error"
-		# line_count = `wc -l "#{todo_file}"`.strip.split(" ")[0].to_i
-		# ln = line_number.to_i
-		# if ln > line_count
-		# 	output = "You don't have that many todo items!"
-		# else
-		# 	File.open(todo_file, 'r') do |f|
-		# 		n = 0
-		# 		f.each_line{|line|
-		# 			until n = ln
-		# 				output = line
-		# 			else
-		# 				n += 1
-		# 			end
-		# 		}
-		# 	end
-		# end
-		# puts output
 	end
 
 	def shutdown
