@@ -1,5 +1,23 @@
 ================ TO-DO ================
 
+STRIKE TODO
+-----------
+not all todo's get DONE
+introduce a command to remove an item from the todo list WITHOUT adding it to the todayfile
+
+PORT OVER YESTERDAY'S TODOS
+---------------------------
+for those todo's that didn't get finished yesterday... they should be on your radar for today
+can think of two ways to do this
+THE FIRST WAY:
+	create a "yesterday todo file" that hangs out in setup
+	on shutdown, copy/overwrite the yesterdaytodofile.txt with the contents of today's todofile
+	on startup, copy/overwrite today's todofile with teh contents of the yesterdaytodofile.txt
+	seems pretty simple and i think it would work fine
+THE SECOND WAY:
+	during the creation of a new todofile for today (if one doesn't already exist), look for the latest, non-today todofile (using their filenames which are all based on dates)
+		using "last updated" could be problematic if somebody accesses an old todofile
+
 ASCII ART ANIMATION
 -------------------
 ascii art animation for pistachio
