@@ -1,5 +1,0 @@
-14:02 let's see if this pushes to git successfully
-14:02 realized that i didn't actually put the shutdown sequence in the main pistachio.rb file...
-14:02 doingstuff
-14:03 whatever
-14:08 whatevs
